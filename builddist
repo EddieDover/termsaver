@@ -1,0 +1,5 @@
+rm -rf build/
+rm -rf dist/
+rm -rf termsaver.egg-info/
+python3 setup.py sdist
+python3 setup.py bdist_egg

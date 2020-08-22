@@ -42,7 +42,7 @@ You may also refer to:
 
 import os
 import platform
-from distutils.core import setup
+from setuptools import setup, find_packages
 from termsaverlib import constants
 
 
@@ -80,24 +80,20 @@ setup(name='termsaver',
       ],
       url='http://termsaver.brunobraga.net',
       keywords=['command-line', 'terminal', 'screensaver'],
-      packages=[
-            'termsaverlib',
-            'termsaverlib.plugins',
-            'termsaverlib.screen',
-            'termsaverlib.screen.base',
-            'termsaverlib.screen.helper',
-      ],
+      # [
+      #      'termsaverlib',
+      #      'termsaverlib.plugins',
+      #      'termsaverlib.screen',
+      #      'termsaverlib.screen.base',
+      #      'termsaverlib.screen.helper',
+      # ],
+      packages=find_packages(),
+      package_data= {
+          "":["*.mo","*.po"],
+          "locale":["locale/*/*.mo","locale/*/*.po"],
+          "data":["*.txt"],
+      },
       license='Apache License v2',
       scripts=['termsaver'],
-      data_files=data_files,
+      # data_files=data_files,
 )
-
-
-if __name__ == '__main__':
-    #
-    # The entry point of this application, as this should not be accessible as
-    # a python module to be imported by another application.
-    #
-    print("""
-Thank you for trying termsaver.
-""")
