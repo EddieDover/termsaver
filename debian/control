@@ -1,9 +1,10 @@
 Source: termsaver
-Section: python
+Section: unknown
 Priority: optional
 Maintainer: Bruno Braga <bruno@brunobraga.net>
 Uploaders: Python Applications Packaging Team <python-apps-team@lists.alioth.debian.org>
-Build-Depends: debhelper (>= 9), bash-completion
+Build-Depends: dh-python, python3-all, debhelper (>= 9), bash-completion
+X_Python3_Version: >= 3.8
 Standards-Version: 3.9.3
 Vcs-Svn: svn://anonscm.debian.org/python-apps/packages/termsaver/trunk/
 Vcs-Browser: http://anonscm.debian.org/viewvc/python-apps/packages/termsaver/trunk/
@@ -11,7 +12,7 @@ Homepage: http://termsaver.brunobraga.net
 
 Package: termsaver
 Architecture: all
-Depends: python3, ${misc:Depends}, ${python3:Depends}
+Depends: ${misc:Depends}, ${python3:Depends}
 Description: simple text-based terminal screensaver
  termsaver is a very simple project that aims at bringing
  the feel of a screensaver feature in text-based terminal
