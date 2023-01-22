@@ -1,8 +1,8 @@
-import unittest
-import sys
-import os
 import argparse
+import os
+import sys
 import time
+import unittest
 
 bin_path = os.path.dirname(os.path.realpath(__file__))
 lib_path = os.path.abspath(bin_path)
@@ -12,7 +12,9 @@ sys.path.insert(0, par_path)
 
 import termsaver
 from termsaverlib import constants
-from termsaverlib.exception import InvalidOptionException, PathNotFoundException
+from termsaverlib.exception import (InvalidOptionException,
+                                    PathNotFoundException)
+
 
 class ScreenTestCase(unittest.TestCase):
     screenName = ""
@@ -51,13 +53,13 @@ class ClockScreen_TestCase(ScreenTestCase):
 
 class Img2AsciiScreen_TestCase(ScreenTestCase):
     screenName = "img2ascii"
-    required_args = ['-p', './empty-for-tests']
+    required_args = ['-p', './tests/empty-for-tests']
     
     def test_path(self):
         with self.assertRaises(SystemExit):
             self.getScreen()
         with self.assertRaises(PathNotFoundException):
-            self.getScreen(['-p', './nonexistant-directory'])
+            self.getScreen(['-p', './tests/nonexistant-directory'])
         try:
             self.getScreen(self.required_args)
         except PathNotFoundException:
@@ -206,13 +208,13 @@ class MatrixScreen_TestCase(ScreenTestCase):
 class ProgrammerScreen_TestCase(ScreenTestCase):
     screenName = "programmer"
     
-    required_args = ['-p', './empty-for-tests']
+    required_args = ['-p', './tests/empty-for-tests']
     
     def test_path(self):
         with self.assertRaises(SystemExit):
             self.getScreen()
         with self.assertRaises(PathNotFoundException):
-            self.getScreen(['-p', './nonexistant-directory'])
+            self.getScreen(['-p', './tests/nonexistant-directory'])
         try:
             self.getScreen(self.required_args)
         except PathNotFoundException:
@@ -281,56 +283,56 @@ class SysmonScreen_TestCase(ScreenTestCase):
     
     def test_path(self):
         with self.assertRaises(PathNotFoundException):
-            self.getScreen(['-p', './nonexistant-directory/invalidfile.txt'])
+            self.getScreen(['-p', './tests/nonexistant-directory/invalidfile.txt'])
         try:
-            self.getScreen(['-p', './empty-for-tests/testfile.txt'])
+            self.getScreen(['-p', './tests/empty-for-tests/testfile.txt'])
         except PathNotFoundException:
             self.fail("Testing for valid pathing failed.")
 
-def run_tests():
-    run_classes = [
-        ClockScreen_TestCase,
-        Img2AsciiScreen_TestCase,
-        Jokes4AllScreen_TestCase,
-        Quotes4AllScreen_TestCase,
-        MatrixScreen_TestCase,
-        ProgrammerScreen_TestCase,
-        RandTxtScreen_TestCase,
-        RSSFeedScreen_TestCase,
-        SysmonScreen_TestCase
-    ]
+# def run_tests():
+#     run_classes = [
+#         ClockScreen_TestCase,
+#         Img2AsciiScreen_TestCase,
+#         Jokes4AllScreen_TestCase,
+#         Quotes4AllScreen_TestCase,
+#         MatrixScreen_TestCase,
+#         ProgrammerScreen_TestCase,
+#         RandTxtScreen_TestCase,
+#         RSSFeedScreen_TestCase,
+#         SysmonScreen_TestCase
+#     ]
     
-    loader = unittest.TestLoader()
-    runner = unittest.TextTestRunner(buffer=None)
+#     loader = unittest.TestLoader()
+#     runner = unittest.TextTestRunner(buffer=None)
     
-    simple_suites_list = []
-    suites_list = []
-    for test_class in run_classes:
-        suite = loader.loadTestsFromTestCase(test_class)
-        results = runner.run(suite)
-        suites_list.append(
-            {"name":test_class.__name__, "results":results}
-        )
-    for suite in suites_list:
-        print(
-            "%s - %s tests run. %s errors, %s failures" % 
-            (
-                suite['name'],
-                str(suite['results'].testsRun),
-                str(len(suite['results'].errors)),
-                str(len(suite['results'].failures))
-            )
-        )
+#     simple_suites_list = []
+#     suites_list = []
+#     for test_class in run_classes:
+#         suite = loader.loadTestsFromTestCase(test_class)
+#         results = runner.run(suite)
+#         suites_list.append(
+#             {"name":test_class.__name__, "results":results}
+#         )
+#     for suite in suites_list:
+#         print(
+#             "%s - %s tests run. %s errors, %s failures" % 
+#             (
+#                 suite['name'],
+#                 str(suite['results'].testsRun),
+#                 str(len(suite['results'].errors)),
+#                 str(len(suite['results'].failures))
+#             )
+#         )
     
-    # Just in case I want to do a big run.
-    # for test_class in run_classes:
-    #     suite = loader.loadTestsFromTestCase(test_class)
-    #     simple_suites_list.append(suite)
+#     # Just in case I want to do a big run.
+#     # for test_class in run_classes:
+#     #     suite = loader.loadTestsFromTestCase(test_class)
+#     #     simple_suites_list.append(suite)
 
-    # combined_suite = unittest.TestSuite(simple_suites_list)
-    # combined_runner = unittest.TextTestRunner()
-    # combined_results = combined_runner.run(combined_suite)
-    # print(combined_results)
+#     # combined_suite = unittest.TestSuite(simple_suites_list)
+#     # combined_runner = unittest.TextTestRunner()
+#     # combined_results = combined_runner.run(combined_suite)
+#     # print(combined_results)
 
-if __name__ == "__main__":
-    run_tests()
+# if __name__ == "__main__":
+#     run_tests()
