@@ -220,7 +220,3 @@ class PositionHelperTestCase(unittest.TestCase):
 #        self.files_list.sort()
 #
 #        self.assertListEqual(files_list, self.files_list)
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -1,0 +1,1 @@
+pytest ./tests --cov="termsaver" --cov-report=xml

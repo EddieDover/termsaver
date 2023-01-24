@@ -35,31 +35,38 @@ class ClockScreen_TestCase(ScreenTestCase):
         screen = self.getScreen( ['-m'])
         self.assertEqual(screen.ampm, True)
         
-    def test_big(self):
+    def test_giant(self):
         screen = self.getScreen()
-        self.assertEqual(screen.big, False)
+        self.assertEqual(screen.giant, False)
+                
+        screen = self.getScreen( ['-g'])
+        self.assertEqual(screen.giant, True)
+        
+    def test_binary(self):
+        screen = self.getScreen()
+        self.assertEqual(screen.binary, False)
                 
         screen = self.getScreen( ['-b'])
-        self.assertEqual(screen.big, True)
+        self.assertEqual(screen.binary, True)
             
     def test_all(self):
         screen = self.getScreen()
-        self.assertEqual(screen.big, False)
+        self.assertEqual(screen.giant, False)
         self.assertEqual(screen.ampm, False)
                 
-        screen = self.getScreen( ['-mb'])
-        self.assertEqual(screen.big, True)
+        screen = self.getScreen( ['-mg'])
+        self.assertEqual(screen.giant, True)
         self.assertEqual(screen.ampm, True)
 
 class Img2AsciiScreen_TestCase(ScreenTestCase):
     screenName = "img2ascii"
-    required_args = ['-p', './empty-for-tests']
+    required_args = ['-p', './tests/empty-for-tests']
     
     def test_path(self):
         with self.assertRaises(SystemExit):
             self.getScreen()
         with self.assertRaises(PathNotFoundException):
-            self.getScreen(['-p', './nonexistant-directory'])
+            self.getScreen(['-p', './tests/nonexistant-directory'])
         try:
             self.getScreen(self.required_args)
         except PathNotFoundException:
@@ -208,13 +215,13 @@ class MatrixScreen_TestCase(ScreenTestCase):
 class ProgrammerScreen_TestCase(ScreenTestCase):
     screenName = "programmer"
     
-    required_args = ['-p', './empty-for-tests']
+    required_args = ['-p', './tests/empty-for-tests']
     
     def test_path(self):
         with self.assertRaises(SystemExit):
             self.getScreen()
         with self.assertRaises(PathNotFoundException):
-            self.getScreen(['-p', './nonexistant-directory'])
+            self.getScreen(['-p', './tests/nonexistant-directory'])
         try:
             self.getScreen(self.required_args)
         except PathNotFoundException:
@@ -283,9 +290,9 @@ class SysmonScreen_TestCase(ScreenTestCase):
     
     def test_path(self):
         with self.assertRaises(PathNotFoundException):
-            self.getScreen(['-p', './nonexistant-directory/invalidfile.txt'])
+            self.getScreen(['-p', './tests/nonexistant-directory/invalidfile.txt'])
         try:
-            self.getScreen(['-p', './empty-for-tests/testfile.txt'])
+            self.getScreen(['-p', './tests/empty-for-tests/testfile.txt'])
         except PathNotFoundException:
             self.fail("Testing for valid pathing failed.")
 
@@ -333,6 +340,3 @@ def run_tests():
     # combined_runner = unittest.TextTestRunner()
     # combined_results = combined_runner.run(combined_suite)
     # print(combined_results)
-
-if __name__ == "__main__":
-    run_tests()
