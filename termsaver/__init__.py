@@ -43,6 +43,7 @@ See more details of this documentation in:
 
 import argparse
 import errno
+import curses
 #
 # Python built-in modules
 #
@@ -119,15 +120,19 @@ def handler(signal_received, frame):
         pass
     show_stdout_cursor()
     sys.exit(0)
-            
+
 def entryPoint():
     signal(SIGINT, handler)
     hide_stdout_cursor()
+    curses.wrapper(main_loop)
+
+def main_loop(window):
+    window.scrollok(True)
+    window.idlok(True)
     tscreen = getScreen()
     if tscreen:
         (screen, parser) = tscreen
-        screen(parser=parser)._parse_args()
-        
+        screen(parser=parser,window=window)._parse_args()
 
 def getScreen():
     verbose = False

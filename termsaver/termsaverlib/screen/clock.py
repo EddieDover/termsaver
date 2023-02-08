@@ -145,14 +145,15 @@ class ClockScreen(ScreenBase, PositionHelperBase):
         ' ' : '     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n',
     }
 
-    def __init__(self, parser = None):
+    def __init__(self, parser = None, window = None):
         """
         The constructor of this class.
         """
         ScreenBase.__init__(self,
             "clock",
             _("displays a digital clock on screen"),
-            parser
+            parser,
+            window
         )
         if self.parser:
             self.parser.add_argument("-m","--ampm", help="Use a 12 hour clock with am/pm suffix.", action="store_true", default=False)
@@ -182,8 +183,9 @@ class ClockScreen(ScreenBase, PositionHelperBase):
 
         text = self.center_text_horizontally(text)
         text = self.center_text_vertically(text)
-
-        print(text)
+        self.window.clear()
+        self.window.addstr(text)
+        self.window.refresh()
 
         sleep_time = 1 # usually one cycle per second
         if self.ampm:

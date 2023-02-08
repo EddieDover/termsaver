@@ -31,7 +31,12 @@ import setuptools
 from termsaver.termsaverlib import constants
 
 long_desc = open("README.md").read()
-required = ['pillow', 'requests'] # Comma seperated dependent libraries name
+required = [
+    'pillow',
+    'requests',
+    'curses ; platform_system!="Windows"',
+    'windows-curses ; platform_system=="Windows"'
+] # Comma seperated dependent libraries name
 
 setuptools.setup(
     name="termsaver",
@@ -58,5 +63,5 @@ setuptools.setup(
         ]
     },
     install_requires=required,
-    python_requires=">=3.6",
+    python_requires=">=3.6"
 )

@@ -165,7 +165,12 @@ class ScreenBase(ScreenHelperBase):
     (new file).
     """
 
-    def __init__(self, name, description, parser=None):
+    window = None
+    """
+    The window object that will be used to display the screen.
+    """
+
+    def __init__(self, name, description, parser=None, window=None):
         """
         The basic constructor of this class. You need to inform basic
         information about your screen:
@@ -180,6 +185,8 @@ class ScreenBase(ScreenHelperBase):
         self.parser = parser
         if self.parser:
             self.parser.prog = "termsaver " + name
+
+        self.window = window
 
         self.name = name
         self.description = description
