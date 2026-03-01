@@ -127,7 +127,7 @@ class URLFetcherHelperBase(ScreenHelperBase):
             url_fields[2] = '/'
         return urlunsplit(url_fields)
 
-    def fetch(self, uri, method_override="POST", user_agent_override=None):
+    def fetch(self, uri, method_override="GET", user_agent_override=None):
         """
         Executes the fetch action toward a specified URI. This will also
         try to avoid unnecessary calls to the Internet by setting the flag

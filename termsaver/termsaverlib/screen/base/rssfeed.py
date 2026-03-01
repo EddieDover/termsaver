@@ -144,6 +144,7 @@ class RSSFeedScreenBase(UrlFetcherBase,
         if self.parser != None:
             self.parser.add_argument("-u", "--url", help="The rss feed url", type=str)
             self.parser.add_argument("-r", "--raw", help="Shows all text available (with HTML if any)", action="store_true")
+            self.parser.add_argument("-d", "--delay", help="Delay between each item displayed (in seconds)", type=float)
             
             #if not hasFormat:
             self.parser.add_argument("-f", "--format",type=str, action="store", help="""|R
@@ -179,6 +180,9 @@ class RSSFeedScreenBase(UrlFetcherBase,
 
         if args.format:
             self.print_format = common.unescape_string(args.format)
+        
+        if args.delay:
+            self.sleep_between_items = args.delay
 
         if args.url:
             try:
